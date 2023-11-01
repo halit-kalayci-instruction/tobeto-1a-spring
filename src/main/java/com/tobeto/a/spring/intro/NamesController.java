@@ -18,20 +18,26 @@ public class NamesController
 
 
     //@RequestParam => Parametreden bilgi okuma
+    // Query String
     @GetMapping
     public String get(@RequestParam String name, @RequestParam(required = false) String surname)
     {
         return "Merhaba " + name + " " + surname;
     }
     // PathVariable, QueryParam
-    @GetMapping("get2")
-    public String get2()
+
+    // /get2/halit
+
+    // Tek parametrelerde path, çoklu parametrelerde RequestParam
+    @GetMapping("{name}")
+    public String get2(@PathVariable String name)
     {
-        return "Merhaba Kodlamaio";
+        return "Merhaba " + name;
     }
 
+    // JSON
     @PostMapping
-    public String post()
+    public String post(@RequestBody Person person)
     {
         return "Merhaba Tobeto, POST";
     }
