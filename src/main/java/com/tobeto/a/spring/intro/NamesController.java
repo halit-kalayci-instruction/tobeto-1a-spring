@@ -19,7 +19,7 @@ public class NamesController
 
     //@RequestParam => Parametreden bilgi okuma
     @GetMapping
-    public String get(@RequestParam String name, @RequestParam String surname)
+    public String get(@RequestParam String name, @RequestParam(required = false) String surname)
     {
         return "Merhaba " + name + " " + surname;
     }
