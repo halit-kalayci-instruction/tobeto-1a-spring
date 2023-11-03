@@ -18,10 +18,16 @@ public class PersonsController {
     }
 
     @GetMapping("{id}")
-    public void getById(@PathVariable int id){
+    public Person getById(@PathVariable int id){
         // Araştırma konusu
+        // lambda expression
         // stream API
-
+        Person person = personList
+                .stream()
+                .filter(p -> p.id == id)
+                .findFirst()
+                .orElseThrow();
+        return person;
     }
 
     @PostMapping
@@ -30,4 +36,5 @@ public class PersonsController {
         personList.add(person);
         return "Eklendi";
     }
+    // Update,Delete
 }
