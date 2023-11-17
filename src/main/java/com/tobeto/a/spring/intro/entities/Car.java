@@ -21,7 +21,7 @@ public class Car
     private String modelName;
 
     @Column(name="daily_price")
-    private BigDecimal dailyPrice;
+    private double dailyPrice;
 
     @Column(name="color")
     private String color;
@@ -30,8 +30,7 @@ public class Car
     private String status;
 
     // TODO: İlişkisel Brand tablosunun alanlarını eklemek.
-
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="brand_id")
     private Brand brand;
 }

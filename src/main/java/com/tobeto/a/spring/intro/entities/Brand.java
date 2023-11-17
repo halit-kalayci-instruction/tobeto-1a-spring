@@ -15,7 +15,7 @@ public class Brand {
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "brand") // DEĞİŞKEN İSMİ
+    @OneToMany(mappedBy = "brand")
     private List<Car> cars;
 }
 // one-to-many ilişkilerde list olan değişken
