@@ -1,6 +1,9 @@
 package com.tobeto.a.spring.intro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 // Repository, DAO, DAL
 // Data Access Object
@@ -11,6 +14,8 @@ import jakarta.persistence.*;
 // ORM => Object Relation Mapping
 @Table(name = "cars")
 @Entity
+@Getter
+@Setter
 public class Car
 {
     @Id
