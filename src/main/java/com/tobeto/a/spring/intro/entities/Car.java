@@ -2,7 +2,11 @@ package com.tobeto.a.spring.intro.entities;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
+// Repository, DAO, DAL
+// Data Access Object
+// Data Access Layer
+
+
 
 // ORM => Object Relation Mapping
 @Table(name = "cars")
@@ -12,7 +16,8 @@ public class Car
     @Id
     @Column(name = "id") // name = kolon_adı
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id; // classın içindeki alanın adı
+    private int id;
+    // classın içindeki alanın adı
 
     @Column(name="model_year")
     private int modelYear;
@@ -34,3 +39,4 @@ public class Car
     @JoinColumn(name="brand_id")
     private Brand brand;
 }
+// 11:05
