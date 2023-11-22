@@ -1,7 +1,9 @@
 package com.tobeto.a.spring.intro.controllers;
 
 import com.tobeto.a.spring.intro.entities.Brand;
+import com.tobeto.a.spring.intro.entities.Car;
 import com.tobeto.a.spring.intro.repositories.BrandRepository;
+import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,14 +29,28 @@ public class BrandsController {
     }
 
     @GetMapping("{id}")
-    public Brand getById(@PathVariable int id){
+    public BrandForDetailDto getById(@PathVariable int id){
         // Optional => Opsiyonel olarak Brand
         // verilen id ile bir veri varsa onu dön, yoksa exception fırlat
-        return brandRepository.findById(id).orElseThrow();
+        // Entity => DTO
+        Brand brand = brandRepository.findById(id).orElseThrow();
+        BrandForDetailDto dto = new BrandForDetailDto();
+        dto.setName(brand.getName());
+        return dto;
     }
 
+    // entitylerin direkt dışarıya açılması YANLIŞ ❌
+    // DTO nesneleri kullanılmalıdır.
+
+
     @PostMapping
-    public void add(@RequestBody Brand brand){
+    public void add(@RequestBody BrandForAddDto brandForAddDto)
+    {
+        // DTO => Entity
+        // Transfer
+        Brand brand = new Brand();
+        brand.setName(brandForAddDto.getName());
+        // Mapping
         brandRepository.save(brand);
     }
 
@@ -48,6 +64,26 @@ public class BrandsController {
 
     // update
 }
-// http://localhost:8080/api/brands GET
 
-// JSON Infinite Recursion
+// Request-Response Pattern
+// Her request ve response özeldir, her birine DTO oluşturmak gerekir.
+
+// AddBrandRequest dto
+// AddBrandResponse dto
+
+// GetBrandResponse
+// GetAllBrandsResponse
+
+@Data
+class BrandForAddDto {
+    private String name;
+}
+@Data
+class BrandForDetailDto {
+    private String name;
+    private List<Car> cars;
+}
+// DTO Yapısı => Data Transfer Object
+// Business-Services Katmanı
+
+// DTO tanımlamaları, validasyon, iş kuralları, CCC (loglama,cacheleme), mapping
