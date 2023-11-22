@@ -26,4 +26,7 @@ public class BrandManager implements BrandService {
         brandRepository.save(brand);
     }
 }
-// 10:10
+// Custom Queryler yazmak -!-
+// Stream API
+
+// 11:05
