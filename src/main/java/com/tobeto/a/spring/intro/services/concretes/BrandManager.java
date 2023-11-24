@@ -4,7 +4,11 @@ import com.tobeto.a.spring.intro.entities.Brand;
 import com.tobeto.a.spring.intro.repositories.BrandRepository;
 import com.tobeto.a.spring.intro.services.abstracts.BrandService;
 import com.tobeto.a.spring.intro.services.dtos.brand.requests.AddBrandRequest;
+import com.tobeto.a.spring.intro.services.dtos.brand.responses.GetListBrandResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BrandManager implements BrandService {
@@ -24,6 +28,27 @@ public class BrandManager implements BrandService {
         Brand brand = new Brand();
         brand.setName(request.getName());
         brandRepository.save(brand);
+    }
+
+    @Override
+    public List<Brand> getByName(String name) {
+        return brandRepository.findByNameStartingWith(name);
+    }
+
+    @Override
+    public List<GetListBrandResponse> getByNameDto(String name) {
+        //TODO: Yaklaşım 1: Repositoryden List<Brand>'i alıp Service katmanında Mapleyerek DTO türüne çevirmek.
+        /*
+        List<Brand> brands = brandRepository.findByNameStartingWith(name);
+        List<GetListBrandResponse> dtos = new ArrayList<>();
+        for (Brand brand: brands) {
+            dtos.add(new GetListBrandResponse(brand.getName()));
+        }
+        return dtos
+        */
+
+        //TODO: Yaklaşım 2: Repositoryde List<GetListBrandResponse> dönebilen yeni bir method oluşturmak.
+        return brandRepository.findByName(name);
     }
 }
 // Custom Queryler yazmak -!-
