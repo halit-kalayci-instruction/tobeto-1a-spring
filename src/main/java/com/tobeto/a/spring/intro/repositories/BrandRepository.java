@@ -32,4 +32,3 @@ public interface BrandRepository extends JpaRepository<Brand, Integer>
     // Select b.name FROM Brand b Where b.name=Mercedes
     List<GetListBrandResponse> findByName(String name);
 }
-// 10:25 discorddayız.
