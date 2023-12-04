@@ -39,16 +39,26 @@ public class BrandManager implements BrandService {
     public List<GetListBrandResponse> getByNameDto(String name) {
         //TODO: Yaklaşım 1: Repositoryden List<Brand>'i alıp Service katmanında Mapleyerek DTO türüne çevirmek.
 
-        List<Brand> brands = brandRepository.findByNameStartingWith(name);
+       /*
+       List<Brand> brands = brandRepository.findByNameStartingWith(name);
         List<GetListBrandResponse> dtos = new ArrayList<>();
         for (Brand brand: brands) {
             dtos.add(new GetListBrandResponse(brand.getId(), brand.getName()));
         }
         return dtos;
+        */
+        /*
+        brandRepository.findAll().stream()
+                .filter((brand) -> brand.getName().equals(name))
+                .map((brand) -> new GetListBrandResponse(brand.getId(), brand.getName()))
+                .toList();
+                */
 
+
+        return brandRepository.findByNameStartingWith(name).stream().map((brand) -> new GetListBrandResponse(brand.getId(), brand.getName())).toList();
 
         //TODO: Yaklaşım 2: Repositoryde List<GetListBrandResponse> dönebilen yeni bir method oluşturmak.
-       // return brandRepository.findByName(name);
+        // return brandRepository.findByName(name);
     }
 }
 

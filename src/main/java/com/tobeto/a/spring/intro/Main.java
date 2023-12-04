@@ -65,5 +65,6 @@ public class Main {
         System.out.println(filteredBrands2.size());
 
         // Multiple Line lambda expressionlarda eğer method bir dönüş tipi bekliyor ise, return keywordu kullanılmalı.
+
     }
 }
