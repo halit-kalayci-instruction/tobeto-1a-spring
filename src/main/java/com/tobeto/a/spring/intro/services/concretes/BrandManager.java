@@ -60,6 +60,11 @@ public class BrandManager implements BrandService {
         //TODO: Yaklaşım 2: Repositoryde List<GetListBrandResponse> dönebilen yeni bir method oluşturmak.
         // return brandRepository.findByName(name);
     }
+
+    @Override
+    public Brand getById(int id) {
+        return brandRepository.findById(id).orElseThrow();
+    }
 }
 
 // Lambda Expression & Stream API

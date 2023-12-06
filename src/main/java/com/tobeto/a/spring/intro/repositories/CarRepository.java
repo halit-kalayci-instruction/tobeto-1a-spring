@@ -13,4 +13,8 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
             "( c.id, c.modelYear, c.modelName, new com.tobeto.a.spring.intro.services.dtos.brand.responses.GetListBrandResponse(b.id, b.name)  ) " +
             "from Car c INNER JOIN c.brand b")
     List<GetListCarResponse> getAll();
+    boolean existsCarByPlate(String plate);
 }
+
+
+

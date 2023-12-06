@@ -39,9 +39,10 @@ public class Car
     @Column(name="status")
     private String status;
 
-    // TODO: İlişkisel Brand tablosunun alanlarını eklemek.
+    @Column(name="plate")
+    private String plate;
+
     @ManyToOne()
     @JoinColumn(name="brand_id")
     private Brand brand;
 }
-// 11:05

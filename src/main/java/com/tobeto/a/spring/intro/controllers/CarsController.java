@@ -1,11 +1,10 @@
 package com.tobeto.a.spring.intro.controllers;
 
 import com.tobeto.a.spring.intro.services.abstracts.CarService;
+import com.tobeto.a.spring.intro.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.a.spring.intro.services.dtos.car.responses.GetListCarResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +17,10 @@ public class CarsController {
     @GetMapping
     public List<GetListCarResponse> getAll(){
         return carService.getAll();
+    }
+
+    @PostMapping
+    public void add(@RequestBody AddCarRequest addCarRequest){
+        carService.add(addCarRequest);
     }
 }
