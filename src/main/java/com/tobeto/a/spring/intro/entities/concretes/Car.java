@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Table(name="cars")
 @Entity
 @Data
@@ -33,4 +35,12 @@ public class Car extends BaseEntity {
     @ManyToOne()
     @JoinColumn(name="model_id")
     private Model model;
+
+    @OneToMany(mappedBy = "car")
+    private List<Rental> rentals;
+
+    @ManyToOne
+    @JoinColumn(name="color_id")
+    private Color color;
 }
+//
