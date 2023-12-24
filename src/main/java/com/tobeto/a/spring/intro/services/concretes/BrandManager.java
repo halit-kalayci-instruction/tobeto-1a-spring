@@ -1,13 +1,12 @@
 package com.tobeto.a.spring.intro.services.concretes;
 
-import com.tobeto.a.spring.intro.entities.Brand;
+import com.tobeto.a.spring.intro.entities.concretes.Brand;
 import com.tobeto.a.spring.intro.repositories.BrandRepository;
 import com.tobeto.a.spring.intro.services.abstracts.BrandService;
 import com.tobeto.a.spring.intro.services.dtos.brand.requests.AddBrandRequest;
 import com.tobeto.a.spring.intro.services.dtos.brand.responses.GetListBrandResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +31,7 @@ public class BrandManager implements BrandService {
 
     @Override
     public List<Brand> getByName(String name) {
-        return brandRepository.findByNameStartingWith(name);
+        return null;
     }
 
     @Override
@@ -55,7 +54,7 @@ public class BrandManager implements BrandService {
                 */
 
 
-        return brandRepository.findByNameStartingWith(name).stream().map((brand) -> new GetListBrandResponse(brand.getId(), brand.getName())).toList();
+        return null;
 
         //TODO: Yaklaşım 2: Repositoryde List<GetListBrandResponse> dönebilen yeni bir method oluşturmak.
         // return brandRepository.findByName(name);

@@ -1,6 +1,6 @@
 package com.tobeto.a.spring.intro;
 
-import com.tobeto.a.spring.intro.entities.Brand;
+import com.tobeto.a.spring.intro.entities.concretes.Brand;
 import com.tobeto.a.spring.intro.services.dtos.brand.responses.GetListBrandResponse;
 
 import java.util.ArrayList;

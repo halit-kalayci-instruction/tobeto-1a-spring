@@ -1,8 +1,7 @@
 package com.tobeto.a.spring.intro.services.concretes;
 
-import com.tobeto.a.spring.intro.entities.Brand;
-import com.tobeto.a.spring.intro.entities.Car;
-import com.tobeto.a.spring.intro.repositories.BrandRepository;
+import com.tobeto.a.spring.intro.entities.concretes.Brand;
+import com.tobeto.a.spring.intro.entities.concretes.Car;
 import com.tobeto.a.spring.intro.repositories.CarRepository;
 import com.tobeto.a.spring.intro.services.abstracts.BrandService;
 import com.tobeto.a.spring.intro.services.abstracts.CarService;
@@ -23,7 +22,7 @@ public class CarManager implements CarService {
 
     @Override
     public List<GetListCarResponse> getAll() {
-        return carRepository.getAll();
+        return null;
     }
 
     //10:10
@@ -31,22 +30,12 @@ public class CarManager implements CarService {
     public void add(AddCarRequest request) {
         // Mapleme
         // Business Rule => İş Kuralı
-        if(carRepository.existsCarByPlate(request.getPlate()))
-        {
-            throw new RuntimeException("Aynı plaka ile 2. araba eklenemez.");
-        }
+
 
         Car car = new Car();
-        car.setColor(request.getColor());
-        car.setStatus("Available");
-        car.setDailyPrice(request.getDailyPrice());
-        car.setModelName(request.getModelName());
-        car.setModelYear(request.getModelYear());
         car.setPlate(request.getPlate());
         // FK alanlar => FK alıp, veritabanından ilgili objeyi alarak set ederiz.
         Brand brand = brandService.getById(request.getBrandId());
-        car.setBrand(brand);
-
         carRepository.save(car);
     }
 }
