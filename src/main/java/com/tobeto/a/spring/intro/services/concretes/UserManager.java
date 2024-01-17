@@ -5,6 +5,8 @@ import com.tobeto.a.spring.intro.repositories.UserRepository;
 import com.tobeto.a.spring.intro.services.abstracts.UserService;
 import com.tobeto.a.spring.intro.services.dtos.user.requests.CreateUserRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,10 @@ public class UserManager implements UserService {
                 .password(passwordEncoder.encode(createUserRequest.getPassword()))
                 .build();
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("No user found!"));
     }
 }
