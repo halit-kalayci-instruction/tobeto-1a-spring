@@ -14,6 +14,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,18 +29,27 @@ public class SecurityConfiguration {
     private final JwtAuthFilter jwtAuthFilter;
     private final UserDetailsService userService;
 
+    private static final String[] WHITE_LIST_URLS = {
+            "/swagger-ui/**",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/api/users/**"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x -> x
-                        .requestMatchers("/api/users/**").permitAll()
+                        .requestMatchers(WHITE_LIST_URLS).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/brands/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/brands/**").hasAnyAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
