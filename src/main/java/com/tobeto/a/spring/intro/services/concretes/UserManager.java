@@ -1,10 +1,15 @@
 package com.tobeto.a.spring.intro.services.concretes;
 
+import com.tobeto.a.spring.intro.core.services.JwtService;
 import com.tobeto.a.spring.intro.entities.concretes.User;
 import com.tobeto.a.spring.intro.repositories.UserRepository;
 import com.tobeto.a.spring.intro.services.abstracts.UserService;
 import com.tobeto.a.spring.intro.services.dtos.user.requests.CreateUserRequest;
+import com.tobeto.a.spring.intro.services.dtos.user.requests.LoginRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +20,8 @@ import org.springframework.stereotype.Service;
 public class UserManager implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public void register(CreateUserRequest createUserRequest) {
@@ -26,6 +33,17 @@ public class UserManager implements UserService {
                 .password(passwordEncoder.encode(createUserRequest.getPassword()))
                 .build();
         userRepository.save(user);
+    }
+
+    @Override
+    public String login(LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+        if(authentication.isAuthenticated())
+        {
+            return jwtService.generateToken(loginRequest.getEmail());
+        }
+        throw new RuntimeException("Kullanıcı adı ya da şifre yanlış");
     }
 
     @Override
