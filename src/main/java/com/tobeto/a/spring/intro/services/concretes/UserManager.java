@@ -21,9 +21,7 @@ import org.springframework.stereotype.Service;
 public class UserManager implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final JwtService jwtService;
 
-    private final AuthenticationManager authenticationManager;
 
     @Override
     public void register(CreateUserRequest createUserRequest) {
@@ -36,16 +34,10 @@ public class UserManager implements UserService {
                 .build();
         userRepository.save(user);
     }
-
+    // 10.25
     @Override
     public String login(LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        if(authentication.isAuthenticated())
-        {
-            return jwtService.generateToken(loginRequest.getUsername());
-        }
-        throw new RuntimeException("Kullanıcı adı ya da şifre yanlış");
+        return "";
     }
 
     @Override
