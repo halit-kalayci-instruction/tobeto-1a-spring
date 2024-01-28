@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 // Generic
 // Generic Typelar Reference Type olarak belirtilmelidir.
 public interface BrandRepository extends JpaRepository<Brand, Integer>
 {
+    Optional<Brand> findByName(String name);
 }

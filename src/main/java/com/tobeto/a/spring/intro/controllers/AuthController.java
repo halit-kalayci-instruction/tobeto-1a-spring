@@ -3,10 +3,10 @@ package com.tobeto.a.spring.intro.controllers;
 import com.tobeto.a.spring.intro.services.abstracts.AuthService;
 import com.tobeto.a.spring.intro.services.dtos.user.requests.CreateUserRequest;
 import com.tobeto.a.spring.intro.services.dtos.user.requests.LoginRequest;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,3 +29,4 @@ public class AuthController {
     }
 
 }
+// 1:50

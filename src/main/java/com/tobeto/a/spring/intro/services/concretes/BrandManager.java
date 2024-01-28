@@ -24,6 +24,10 @@ public class BrandManager implements BrandService {
         if(request.getName().length() < 3)
             throw new RuntimeException("Marka ismi 3 haneden küçük olamaz");
 
+        Brand brandWithSameName = brandRepository.findByName(request.getName()).orElse(null);
+        if(brandWithSameName!=null)
+            throw new RuntimeException("Aynı markadan zaten mevcut.");
+
         Brand brand = new Brand();
         brand.setName(request.getName());
         brandRepository.save(brand);
